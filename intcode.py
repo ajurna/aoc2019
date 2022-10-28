@@ -1,6 +1,6 @@
 import sys
 from collections import defaultdict
-from typing import List, Tuple
+from typing import List, Tuple, NamedTuple
 
 from loguru import logger
 #
@@ -152,3 +152,10 @@ class Machine:
         self.running = False
         self.finished = True
 
+
+class Point(NamedTuple):
+    x: int
+    y: int
+
+    def __add__(self, other: "Point"):
+        return Point(self.x + other.x, self.y + other.y)

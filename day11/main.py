@@ -1,8 +1,7 @@
 from collections import defaultdict
-from typing import NamedTuple
 from functools import reduce
 
-from intcode import Machine
+from intcode import Machine, Point
 
 puzzle_input = [3, 8, 1005, 8, 299, 1106, 0, 11, 0, 0, 0, 104, 1, 104, 0, 3, 8, 102, -1, 8, 10, 101, 1, 10, 10, 4, 10,
                 1008, 8, 0, 10, 4, 10, 1002, 8, 1, 29, 1, 1007, 14, 10, 2, 1106, 8, 10, 3, 8, 1002, 8, -1, 10, 1001, 10,
@@ -30,14 +29,6 @@ puzzle_input = [3, 8, 1005, 8, 299, 1106, 0, 11, 0, 0, 0, 104, 1, 104, 0, 3, 8, 
                 21202, 1, 1, -4, 21102, 1, 1, -1, 2207, -4, -2, 10, 1006, 10, 586, 21102, 0, 1, -1, 22202, -2, -1, -2,
                 2107, 0, -3, 10, 1006, 10, 608, 21201, -1, 0, 1, 21102, 1, 608, 0, 106, 0, 483, 21202, -2, -1, -2,
                 22201, -4, -2, -4, 109, -5, 2106, 0, 0]
-
-
-class Point(NamedTuple):
-    x: int
-    y: int
-
-    def __add__(self, other: "Point"):
-        return Point(self.x + other.x, self.y + other.y)
 
 
 class Direction:
@@ -93,9 +84,10 @@ while not part2.finished:
     location += pointer.direction
 
 print(f'Part 2:')
-min_x, max_x, min_y, max_y = reduce(lambda x, y: [min(x[0], y.x), max(x[1], y.x), min(x[2], y.y), max(x[3], y.y)], area, [0,0,0,0])
+min_x, max_x, min_y, max_y = reduce(lambda x, y: [min(x[0], y.x), max(x[1], y.x), min(x[2], y.y), max(x[3], y.y)], area,
+                                    [0, 0, 0, 0])
 
-for y in range(max_y+1, min_y-1, -1):
-    for x in range(min_x-1, max_x+1):
-        print('#' if area[Point(x,y)] else ' ', end='')
+for y in range(max_y + 1, min_y - 1, -1):
+    for x in range(min_x - 1, max_x + 1):
+        print('#' if area[Point(x, y)] else ' ', end='')
     print()
