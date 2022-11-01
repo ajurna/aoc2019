@@ -159,3 +159,6 @@ class Point(NamedTuple):
 
     def __add__(self, other: "Point"):
         return Point(self.x + other.x, self.y + other.y)
+
+    def day_17_score(self) -> int:
+        return self.x * self.y
